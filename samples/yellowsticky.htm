@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Yellow Sticky (Web Storage) V1 - jsFiddle demo by wesreisz</title>
+  
+  <script type='text/javascript' src='http://code.jquery.com/jquery-2.0.1.js'></script>
+    
+  
+  <style type='text/css'>
+    .yellowSticky{
+   background-image:url('http://www.professorprint.com/images/post-it-yellow.png');
+   background-repeat:no-repeat;
+   height: 275px;
+   width: 275px;
+   padding: 60px;
+   padding-top: 80px; 
+}
+#divScribble{
+    transform: rotate(-2deg);
+    -ms-transform: rotate(-2deg); /* IE 9 */
+    -webkit-transform: rotate(-2deg); /* Safari and Chrome */
+    font-family: 'Finger Paint', cursive;
+    font-size: 24px;
+}
+
+  </style>
+  
+
+
+<script type='text/javascript'>//<![CDATA[ 
+$(window).load(function(){
+var scribble = {};
+scribble.save = function(){
+   scribble.data = document.getElementById('divScribble').innerHTML;
+   localStorage.setItem('scribble', scribble.data);
+};
+scribble.fetch = function(){
+   scribble.data = localStorage.getItem('scribble');
+   if (scribble.data){ 
+      document.getElementById('divScribble').innerHTML = scribble.data;
+   }else{
+      document.getElementById('divScribble').innerHTML = "Leave me a note";
+   }
+}
+
+$(document).ready(function(){
+    $('#divScribble').keyup(function(){
+        scribble.save();
+    })
+    scribble.fetch();
+});
+
+});//]]>  
+
+</script>
+
+
+</head>
+<body>
+  <article class="yellowSticky" >
+    <section id="divScribble" contenteditable="true">
+    </section>
+</article>   
+  
+</body>
+
+
+</html>
+

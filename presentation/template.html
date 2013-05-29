@@ -1,0 +1,1378 @@
+<!--
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HTML5 Workshop</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+  <script data-main="js/slides" src="js/video.js"></script>
+  <script data-main="js/slides" src="js/easeljs-0.6.1.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="logoslide nobackground">
+    <article class="flexbox vcenter">
+     	 <span><img src="images/logoWes.png" /></span>
+    </article>
+  </slide>
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/afceaSml.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+ <slide class="thank-you-slide dark nobackground">
+    <article class="flexbox vleft auto-fadein" style="position: relative; top: -50px" >
+	  <p>Wesley Reisz</p><br />
+  	  <ul>
+			<b>Past:</b>
+			<li>2011: Deep Dive into HTML5 and CSS3 <br /><a href="http://www.infoq.com/author/Wesley-Reisz">http://www.infoq.com/author/Wesley-Reisz</a>
+				(CodePaLOUsa)</li>
+			<li>2012: Kick Ass HTML5 <br /><a href="http://reisz-kickass.appspot.com">http://reisz-kickass.appspot.com</a> (CodePaLOUsa)</li>
+			<li>2013: Lions and Tigers and Pig Ohh My... A Coder's Intro to Big Data <br /><a href="http://reisz-ltpom.appspot.com/">http://reisz-ltpom.appspot.com</a>
+				(CodePaLOUsa, Stir Trek, MOSSCon)</li>
+			<li>2013: HTML5 Workshop, May 29 5:30pm @ Fort Knox <br /><a href="http://reisz-html5.appspot.com">http://reisz-html5.appspot.com</a> (Young AFCEANs)</li>	
+			<br />
+			<b>Upcoming:</b>
+			<li>Fall 2013 Android Programming (UofL COB)</li>
+			<li>Spring 2013 Web Architecture (UofL COB)</li>
+	  </ul>
+		<p class="auto-fadein" style="position: relative; top: -60px; text-align: center;" data-config-contact>
+	      <!-- populated from slide_config.js -->
+	    </p>
+    </article>
+	<article>
+		<a href="https://github.com/wesreisz"><img border="0" class="gitfork" src="/images/forkme_right_red_aa0000.png" width="149px" height="149px" /></a>
+	</article>
+  </slide>
+
+
+  <slide class="segue quote nobackground">
+    <article class="flexbox vleft auto-fadein" style="text-align: right;">
+
+  		<q class="black">What's the first thing that comes to mind when someone asks about HTML5?</q>
+
+    </article>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/html5Bullies.png)">
+	<footer class="source black">http://www.funnypicss.com/technology/</footer>	
+  </slide>
+
+  <slide>
+    <article>
+	    <script>
+			var demo = {moving:false,stage:{},donkey:{}};
+			
+			demo.clicker=function(){
+				if(demo.moving){
+					console.log("moving so stop");
+					demo.moving = false;
+					demo.pauseDonkey();
+				}else{
+					console.log("not moving so let's go");
+					demo.moving = true;
+					demo.runDonkey();
+				}
+			}
+			demo.pauseDonkey=function() {
+				createjs.Ticker.removeAllListeners(); 
+			}
+			demo.runDonkey=function() {
+			    demo.stage = new createjs.Stage(document.getElementById("li-image6"));
+
+			    var ss = new createjs.SpriteSheet({
+			        "animations": {
+			            "run": [0, 3]
+			        },
+			            "images": ["images/donkey.png"],
+			            "frames": {
+			            "height": 200,
+			            "width": 200,
+			            "regX": 0,
+			            "regY": 0
+			        }
+			    });
+				var txt = new createjs.Text("Kick Ass!", "36px Arial", "#FFF");
+				txt.x = 80;
+				txt.y = 80;
+				demo.stage.addChild(txt);
+					
+			    demo.donkey = new createjs.BitmapAnimation(ss);
+				demo.donkey.x = -200;
+			    demo.donkey.y = 0
+			    demo.donkey.scaleX = demo.donkey.scaleY = .75;
+
+			    demo.donkey.gotoAndPlay("run");
+
+			    demo.stage.addChild(demo.donkey);
+			    createjs.Ticker.setFPS(10);
+			    createjs.Ticker.addEventListener("tick", function(event) {
+					console.log("test");
+			        demo.donkey.x += 10;
+			        if (demo.donkey.x > demo.stage.canvas.width) { 
+					   demo.donkey.x = -200;
+					}
+			        demo.stage.update(event);
+			    });
+			}
+		</script>
+     	<span class="build">
+			<img id="li-image1" src="/images/browsers.png">
+	     	<img id="li-image2" src="/images/devices.png">
+			<img id="li-image5" src="/images/tags.png">
+	 		<img id="li-image4" src="/images/apis.png">
+			<img id="li-image3" src="/images/geolocation.png">
+			<canvas id="li-image6" style="background-color:#CCC;" onclick="demo.clicker();" >
+	    </span>
+    </article>
+  </slide>
+
+ <slide class="fill nobackground" style="background-image: url(images/confusing-tech-language.jpg)">
+    <hgroup>
+      <h2 class="white italics" style="text-shadow: 1px 1px 1px #000;">"What the heck is HTML5 really?"</h2>
+    </hgroup>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>HTML5 Definition</h2>
+    </hgroup>
+    <article>
+		<table border="0" cellpadding="0">
+			<tr>
+				<td>
+					<ul class="build">
+				        <li style="margin-bottom: 2em">HTML5 is a snapshot of HTML, which is being worked on:
+					 		<ul>
+						        <li>by the WHATWG community</li> 
+								<li>and also the W3C HTML Working Group.</li>
+							</ul>	
+						</li>	
+						<li style="margin-bottom: 2em">HTML5 is a <span style="font-size:20px; font-style:italic">new version</span> of HTML4, XHTML1, and DOM Level 2 HTML<span style="font-size:20px; font-style:italic"> addressing many of the issues</span> of those specifications while at the same time enhancing (X)HTML to 
+							more adequately address Web applications.</li> 
+						<li style="margin-bottom: 2em">Besides defining a markup language that can be written in both HTML and XML 
+							(XHTML) it also <span style="font-size:20px; font-style:italic">defines many APIs</span> that form the basis of the Web architecture.</li>
+				        </li>
+						<li style="margin-bottom: 2em">HTML5 is an <span style="font-size:20px; font-style:italic">evolving standard</span> and wont be finished until... is it
+							a <span style="font-size:20px; font-style:italic">living standard</span> that will continue to evolve?</li>
+				      </ul>
+				</td>
+				<td>
+					 <center>
+					  	<img src="images/html5Wikipedia.png" ><br /><br />
+						Definition: <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/">WHATWG</a><br /><br />
+						Definition: <a href="http://www.w3.org/html/wg/">W3C Working Group HTML5</a><br />
+						
+					 </center>
+				</td>
+			</tr>
+		</table>
+    </article>
+  </slide>
+
+  <slide>
+	<hgroup>
+      <h2>HTML5 API's</h2>
+    </hgroup>
+    <article>
+    	<img src="/images/HTML5-APIs-and-related-technologies-by-Sergey-Mavrody.png">
+	</article>
+  </slide>
+
+  <slide>
+	<hgroup>
+      <h2>But Wait... what happened to mobility?</h2>
+    </hgroup>
+    <article>
+    	<img style="position: relative; left: 350px;" src="/images/phoneninja.png">
+	</article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Evolution of the Web</h2>
+    </hgroup>
+    <article>
+      <iframe data-src="http://www.evolutionoftheweb.com/"></iframe>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Internet Global Traffic Growth Rate (PB per Month)</h2>
+    </hgroup>
+    <article>
+		<table border="0" cellpadding="0">
+			<th colspan="8">
+				Global IP Traffic Growth, 2011-2016
+			</th>
+			<tr>
+				<td>&nbsp;</td>
+				<td>2011</td>
+				<td>2012</td>
+				<td>2013</td>
+				<td>2014</td>
+				<td>2015</td>
+				<td>2016</td>
+				<td>CAGR 2011-2016</td>
+			</tr>
+			<tr>
+				<td>Fixed Internet</td>
+				<td>23,288</td>
+				<td>32,990</td>
+				<td>40,587</td>
+				<td>50,888</td>
+				<td>64,349</td>
+				<td>81,347</td>
+				<td>28%</td>
+			</tr>
+			<tr>
+				<td>Managed IP</td>
+				<td>6,849</td>
+				<td>9,199</td>
+				<td>11,846</td>
+				<td>13,925</td>
+				<td>16,085</td>
+				<td>18,131</td>
+				<td>21%</td>
+			</tr>
+			<tr>
+				<td>Mobile data</td>
+				<td>597</td>
+				<td>1,252</td>
+				<td>2,379</td>
+				<td>4,215</td>
+				<td>6,896</td>
+				<td>10,804</td>
+				<td>78%</td>
+			</tr>
+		</table>
+		<br /><br />
+		<span class="small">*<b>CAGR</b>: Command Annual Growth Rate</span>
+		<footer class="source">Cisco Visual Networking Index: Forecast and Methodology, 2011-2016</footer>
+    </article>
+    <article>
+		<span class="build">
+	     	<img id="circle-mobile" src="/images/circle-it.png">
+	    </span>
+	</article>
+  </slide>
+
+ <slide class="segue dark quote nobackground">
+    <article class="flexbox vleft auto-fadein">
+  		<q>HTML Markup (aka Semantic Tags)</q>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>HTML Markup (aka Semantic Tags)</h2>
+	  <h3>Div-itis</h3>
+    </hgroup>
+    <article>
+      <ul class="fade">
+        <li>
+			<article>
+		      <pre class="prettyprint" data-lang="html">
+&lt;div id=&quot;header&quot;&gt;
+     &lt;h2&gt;My Website Header&lt;/h2&gt;
+&lt;/div&gt;
+&lt;div id=&quot;page&quot;&gt;  
+&lt;div id=&quot;navigation&quot;&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Portfolio&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Blog&lt;/a&gt;&lt;/li&gt;
+       &lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&quot;content&quot;&gt;
+    &lt;div class=&quot;bloc&quot;&gt;
+        &lt;h1&gt;Fluid Layout&lt;/h1&gt;
+        &lt;div class=&quot;data&quot;&gt;
+            &lt;div id=&quot;divOutput&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;p&gt;Jelly beans jelly beans marshmallow marshmallow muffin tart brownie
+        ...
+			  </pre>
+		    </article>
+		</li>
+      </ul>
+    </article>
+ </slide>
+
+ <slide>
+    <hgroup>
+      <h2>HTML Markup (aka Semantic Tags)</h2>
+    </hgroup>
+    <article class="center">
+     	<img src="/images/html5pagelayout.png">
+	</article>
+ </slide>
+
+  <slide>
+    <hgroup>
+      <h2>HTML Markup (aka Semantic Tags)</h2>
+    </hgroup>
+    <article>
+      <ul class="fade">
+        <li>
+			<article>
+		      <pre class="prettyprint" data-lang="html">
+&lt;header&gt;
+     &lt;h2&gt;My Website Header&lt;/h2&gt;
+&lt;/header&gt;
+&lt;article id=&quot;page&quot;&gt;
+    &lt;nav&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Portfolio&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Blog&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+    &lt;section id=&quot;content&quot;&gt;
+        &lt;div class=&quot;bloc&quot;&gt;
+            &lt;h1&gt;Fluid Layout&lt;/h1&gt;
+            &lt;section class=&quot;data&quot;&gt;
+                &lt;output id=&quot;divOutput&quot;&gt;&lt;/output&gt;
+            &lt;/section&gt;
+            &lt;p&gt;Jelly beans jelly beans marshmallow marshmallow muffin tart brownie.
+        ...
+			  </pre>
+		    </article>
+		</li>
+      </ul>
+    </article>
+	<article class="caniuse">
+		  <a href="http://caniuse.com/#feat=html5semantic"><img src="/images/smlQuestionMark.png" border="0"></a>
+	</article>
+  </slide>
+
+<slide class="fill nobackground" style="background-image: url(images/Bruce-Lee-010.jpg)">
+    <hgroup>
+      <h2 class="italics" style="text-shadow: 1px 1px 1px #000;">Enough Talk... More foo!</h2>
+    </hgroup>
+  </slide>
+
+
+  <slide class="fill nobackground" style="background-image: url(images/demo.png)">
+    <hgroup>
+      <h2 class="italics" style="text-shadow: 1px 1px 1px #000;">Exercise 1: Div-itis<br />
+		(Easy)
+	</h2>
+    </hgroup>
+	<article style="text-align: right; position:relative; right: 50px; top: 320px;">
+      <section>
+	    <ul>
+			<li>Convert Div-itis to HTML5 Semantic Tags (See the figure on Slide 15)</li>
+			*NOTE: Don't forget the CSS!!! 
+		</ul>
+      </section>
+    </article>
+  </slide>
+
+ <slide>
+   <article>
+		<hgroup>
+	      <h2  style="text-shadow: 1px 1px 1px #000;">Exercise 1: Div-itis</h2>
+	    </hgroup>
+     <!--iframe data-src="http://jsbin.com/ahesed/7"></iframe-->
+	 <iframe data-src="http://jsfiddle.net/wesreisz/SGrhf/embedded/result%2Cjs%2Chtml%2Ccss/"></iframe>
+   </article>
+ </slide>
+
+
+
+<slide>
+  <article>
+		<hgroup>
+	      <h2  style="text-shadow: 1px 1px 1px #000;">Exercise 1: Div-itis Results</h2>
+	    </hgroup>
+    <!--iframe data-src="http://jsbin.com/ejisuz/2"></iframe-->
+    <iframe data-src="http://jsfiddle.net/wesreisz/j9XB5/embedded/result%2Cjs%2Chtml%2Ccss/"></iframe>
+  </article>
+</slide>
+
+ <slide class="segue dark quote nobackground">
+    <aside class="gdbar right top"><img src="images/afceaSml.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      
+		<img src="/images/PandaNinjaAward.png"><br />
+      
+  		<q class="small">Congrats! You've earned the Ninja Panda Award for mastering HTML5 Semantic Tags!</q>
+      
+    </article>
+  </slide>
+
+
+ <slide class="segue dark quote nobackground">
+    <aside class="gdbar right bottom"><img src="images/afceaSml.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <q>
+       But wait... there's more HTML Markup/Markup Related Goodness
+      </q>
+    </article>
+  </slide>
+
+
+  <slide>
+   <article>
+		<hgroup>
+	      <h2  style="text-shadow: 1px 1px 1px #000;">caniuse.com</h2>
+	    </hgroup>
+     <iframe data-src="http://www.caniuse.com"></iframe>
+   </article>
+   <article class="caniuse">
+		<a href="http://caniuse.com"><img src="/images/smlQuestionMark.png" border="0"></a>
+   </article>
+ </slide>
+
+
+ <slide>
+    <hgroup>
+      <h2>HTML Markup Form (Input) Tags</h2>
+      <h3>...more features for forms</h3>
+    </hgroup>
+    <article>
+	  <table>
+		<tr>
+			<td>
+     			 <iframe data-src="/samples/form.html" style="width: 350px;height: 300px"></iframe>
+			</td>
+			<td>
+					<article>
+				      <pre class="prettyprint" data-lang="html">
+&lt;input type=&quot;text&quot; name=&quot;name&quot; placeholder=&quot;Wes&quot;&gt;
+&lt;input type=&quot;range&quot; min=&quot;0&quot; max=&quot;10&quot;
+        name=&quot;priority&quot; value=&quot;0&quot; id=&quot;priority&quot; &gt;
+&lt;input type=&quot;number&quot; name=&quot;estimated_hours&quot;
+        min=&quot;0&quot; max=&quot;1000&quot;
+        id=&quot;estimated_hours&quot; placeholder=&quot;500&quot;&gt;
+&lt;input type=&quot;date&quot; name=&quot;start_date&quot; id=&quot;start_date&quot;
+        value=&quot;2010-12-01&quot; &gt;
+&lt;input type=&quot;email&quot; name=&quot;email&quot; id=&quot;email&quot; 
+        placeholder=&quot;user@domain.com&quot;&gt;
+&lt;input type=&quot;url&quot; name=&quot;url&quot; id=&quot;url&quot; 
+        placeholder=&quot;http://www.wesleyreisz.com&quot;&gt;
+&lt;input type=&quot;color&quot; name=&quot;project_color&quot; 
+        id=&quot;project_color&quot;&gt;
+ </pre>
+				    </article>
+			</td>
+		</tr>
+	  </table>		
+    </article>
+	<article class="caniuse">
+		  <a href="http://caniuse.com/#feat=html5semantic"><img src="/images/smlQuestionMark.png" border="0"></a>
+	</article>
+  </slide>
+
+<slide>
+	<hgroup>
+      <h2>HTML Markup Form (Input) Tags</h2>
+      <h3>...more native features</h3>
+    </hgroup>
+ <article>
+        <h3>Mix of &lt;input type=range&gt;, &lt;output&gt; and &lt;meter&gt; elements</h3>
+        <pre contenteditable="">&lt;meter value=75 min=0 max=100 low=20 high=98&gt;75%&lt;/meter&gt;</pre>
+
+        <p>Grades: <meter id="meter2" value="75" min="0" max="100" low="60" high="100" optimum="100">75%</meter>
+
+            <input min="0" max="100" value="75" id="meter2range" onchange="effect('meter2', 'meter2range')" type="range">
+            <output id="meter2val"></output></p>
+
+
+        <pre contenteditable="">&lt;meter min=50 max=200 low=90 high=119 optimum=100&gt;&lt;/meter&gt;</pre>
+
+        <p>Blood Pressure: <meter id="meter3" value="125" min="50" max="200" low="90" high="119" optimum="100">125</meter>
+
+            <input min="0" max="200" value="125" id="meter3range" onchange="effect('meter3', 'meter3range')" type="range">
+            <output id="meter3val"></output></p>
+
+	<pre contenteditable="">&lt;p&gt;Progress Bar: &lt;progress id=&quot;progress1&quot; value=&quot;125&quot; min=&quot;0&quot; max=&quot;200&quot;&gt;125&lt;/progress&gt;</pre>
+        	<p>Progress Bar: <progress id="progress1" value="125" min="0" max="200">125</progress>
+
+	            <input min="0" max="200" value="125" id="progress1range" onchange="effect('progress1', 'progress1range')" type="range">
+	            <output id="progress1val"></output></p>
+        	
+		
+        <script defer="defer">
+            function effect(meter, meterrange) {
+                var currVal = document.getElementById(meterrange).value;
+                document.getElementById(meter).value =  currVal;
+                document.getElementById(meter+ "val").innerHTML = currVal;
+            }
+        </script>
+    </article>
+	<article class="caniuse">
+		  <a href="http://caniuse.com/#feat=html5semantic"><img src="/images/smlQuestionMark.png" border="0"></a>
+	</article>
+  </slide>
+
+
+  <slide>
+		<hgroup>
+	      <h2>New attributes: the <code>data-*</code> attributes!</h2>
+	      <h3>...a way to add additional information to your tags and access it</h3>
+	    </hgroup>
+        <article>
+			<p>The data-* attributes of HTML5 are just an "official" way to add arbitrary data to html elements within valid html code.</p>
+	    <pre class="prettyprint" data-lang="html">
+	&lt;img src="photo.jpg" data-docNumber="CDE45" id="img123"
+	     date="12 September 2012"&gt;
+        </pre>
+
+		 <pre class="prettyprint" data-lang="JavaScript">
+	var mydiv=document.getElementById('mydiv')
+
+	//Using DOM's getAttribute() property
+	var documentNumber=mydiv.getAttribute("data-docNumber") //returns "CDE45"
+	mydiv.setAttribute("data-docNumber", "WTR44") //changes "data-docNumber" to "WTR44"
+	mydiv.removeAttribute("data-docNumber") //removes "data-docNumber" attribute entirely
+	     </pre>
+    </article>
+	<article class="caniuse">
+		  <a href="http://caniuse.com/#feat=dataset"><img src="/images/smlQuestionMark.png" border="0"></a>
+	</article>
+  </slide>
+
+  <slide>
+		<hgroup>
+	      <h2>Microdata</h2>
+	      <h3>...a way to label content to describe a specific type of information </h3>
+	    </hgroup>
+        <article>
+			<div itemscope itemtype="http://data-vocabulary.org/Person">
+				    My name is <span itemprop="name">Wesley Reisz</span>,
+				    and I am a <span itemprop="jobtitle">solution architect</span>
+				    from <a href="http://www.hp.com" itemprop="affiliation">HP Enterprise Service</a>.
+				    My email is <span itemprop="email">wes@wesleyreisz.com</span> and I live in the city 
+				    of <span itemprop="address" itemscope itemtype="http://data-vocabulary.org/Address">
+				    <span itemprop="locality">Louisvile</span>, in the <span itemprop="state"
+				    >Kentucky</span> United States </span>
+				</div>
+				<br /><br />
+		        <pre  class="prettyprint" data-lang="html">
+	&lt;div itemscope itemtype="http://data-vocabulary.org/Person"&gt;
+	    My name is &lt;span itemprop="name"&gt;Wesley Reisz&lt;/span&gt;,
+	    and I am a &lt;span itemprop="jobtitle"&gt;solution architect&lt;/span&gt;
+	    from the &lt;a href="http://www.hp.com" itemprop="affiliation"&gt;HP Enterprise Service&lt;/a&gt;.
+	    My email is &lt;span itemprop="email"&gt;wes@wesleyreisz.com&lt;/span&gt; and I live in the city 
+	    of &lt;span itemprop="address" itemscope itemtype="http://data-vocabulary.org/Address"&gt;
+	    &lt;span itemprop="locality"&gt;Louisvile&lt;/span&gt;, in the &lt;span itemprop="state"
+	    &gt;Kentucky&lt;/span&gt; United States &lt;/span&gt;
+	&lt;/div&gt;
+		        </pre>
+		    </article>	
+			<article class="caniuse">
+				  <a href="http://caniuse.com"><img src="/images/smlQuestionMark.png" border="0"></a>
+			</article>
+  </slide>
+
+  <slide class="segue dark quote nobackground">
+    <aside class="gdbar right bottom"><img src="images/afceaSml.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <q>
+        Video/Audio on the Web 
+      </q>
+    </article>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/hamsterdance.png)">
+    <hgroup>
+      <h2 class="black" style="text-shadow: 1px 1px 1px #000;"> Video on the Web</h2>
+    </hgroup>
+    <footer class="source black"><a href="http://www.webhamster.com/">http://www.webhamster.com/</a></footer>
+ 	<aside class="note">
+      <section>
+        <p>No matter how hard I try, this is still what first comes to mind when I think of video and sound on the web.</p>
+      </section>
+    </aside>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Video on the Web</h2>
+    </hgroup>
+    <article>
+      	<p>Can I use the Audio tag?<br />
+			<ul class="build fade">
+		        <li class="italics">Firefox 3.5+, Chrome 3+, IE9+, Safari 3.1+, Opera 9.8+</li>
+			</ul>
+		</p>
+		<p>Can I use the video tag?<br />
+			<ul class="build fade">
+		        <li class="italics">Firefox 3.5+, Chrome 3+, IE9+, Safari 3.1+, Opera 10.5+</li>
+			</ul>
+		</p>
+
+		<p>The State Of HTML5 Video by longtailvideo</p>
+
+		<ul class="build fade">
+      		<li>79% of devices can play html5 video</li>
+			<li>50% of devices can play either WebM or MP4</li>
+			<li>90% of tag attributes are supported</li>
+			<li>80% of JavaScript API features work reliably</li>
+			<li>80% support fullscreen features</li>
+			<li>30% support accessibility features</li>
+			<ul>
+	      		<li class="small">linkage: <a href="http://www.longtailvideo.com/html5">http://www.longtailvideo.com/html5</a></li>
+			</ul>
+		</ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Video on the Web</h2>
+    </hgroup>
+    <article>
+      	<div style="text-align:center"> 
+			<div style="text-align:center"> 
+			  <video id="video1" width="600">
+				    <source src="/images/mov_bbb.mp4" 
+						type="video/mp4"><source src="/images/mov_bbb.ogg" type="video/ogg">Your browser does not support HTML5 video.
+			  </video><br />
+			  <button onclick="myVideo.playPause()">Play/Pause</button> 
+			  <button onclick="myVideo.makeBig()">Big</button>
+			  <button onclick="myVideo.makeSmall()">Small</button>
+			  <button onclick="myVideo.makeNormal()">Normal</button>
+			  <button onclick="myVideo.toggleMute()">Mute</button>
+			  <button onclick="myVideo.setVolume(10)">Volume Up</button>
+			  <button onclick="myVideo.setVolume(-10)">Volume Down</button>
+			  <footer class="source black"><a href="http://www.bigbuckbunny.org/">bigbuckbunny</a></footer>
+			</div> 
+			<br class="clear" />
+			<ul class="small">
+				<li>Loading: <a href="http://www.longtailvideo.com/html5/loading/">Loading</a>
+				<li>Volume: <a href="http://www.longtailvideo.com/html5/volume/">Volume</a>
+				<li>Seeking: <a  href="http://www.longtailvideo.com/html5/seeking/">Seeking</a>
+			</ul>	
+			<script> 
+			 	myVideo.vid=document.getElementById("video1");
+  			</script>
+		</div>
+	</article>
+		<article class="caniuse">
+			  <a href="http://caniuse.com/#feat=video"><img src="/images/smlQuestionMark.png" border="0"></a>
+		</article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Video on the Web</h2>
+    </hgroup>
+	<article class="smaller">
+		<table style="background-color:transparent;">
+			<tr style="background-color:transparent;">
+				<td style="background-color:transparent;">
+<pre class="prettyprint" data-lang="html">
+&lt;div style=&quot;text-align:center&quot;&gt; 
+   &lt;div style=&quot;text-align:center&quot;&gt; 
+      &lt;video id=&quot;video1&quot; width=&quot;600&quot;&gt;
+          &lt;source src=&quot;images/mov_bbb.mp4&quot; 
+             type=&quot;video/mp4&quot;&gt;&lt;source src=&quot;
+             images/mov_bbb.ogg&quot; type=&quot;video/ogg&quot;&gt;
+             Your browser does not support HTML5 video.
+          &lt;/video&gt;&lt;br /&gt;
+          &lt;button 
+            onclick=&quot;myVideo.playPause()&quot;&gt;Play/Pause&lt;/button&gt; 
+          &lt;button 
+            onclick=&quot;myVideo.makeBig()&quot;&gt;Big&lt;/button&gt;
+          &lt;button 
+            onclick=&quot;myVideo.makeSmall()&quot;&gt;Small&lt;/button&gt;
+          &lt;button 
+            onclick=&quot;myVideo.makeNormal()&quot;&gt;Normal&lt;/button&gt;
+        &lt;/div&gt; 
+        &lt;br class=&quot;clear&quot; /&gt;
+        &lt;script&gt; 
+          myVideo.vid=document.getElementById(&quot;video1&quot;);
+        &lt;/script&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+				</td>
+				<td>
+<pre class="prettyprint" data-lang="javascript">
+
+var myVideo={};
+myVideo.playPause=function(){ 
+   if (myVideo.vid.paused){
+           myVideo.vid.play();
+   }else{
+           myVideo.vid.pause();
+   }
+} 
+myVideo.makeBig=function(){ 
+   myVideo.vid.width=800; 
+} 
+myVideo.makeSmall=function(){ 
+   myVideo.vid.width=320; 
+} 
+myVideo.makeNormal=function(){ 
+   myVideo.vid.width=600; 
+}
+ </pre>				
+				</td>
+			</tr>
+		</table>
+   	</article>
+		<article class="caniuse">
+			  <a href="http://caniuse.com/#feat=video"><img src="/images/smlQuestionMark.png" border="0"></a>
+		</article>
+  </slide>
+
+<slide id="web-speech-example">
+<hgroup>
+      <h2>Web Speech API</h2>
+      <h3></h3>
+    </hgroup>
+    <article ><p>Speech recognition and synthesis for web apps.</p>
+<pre class="prettyprint" data-lang="JS" data-run-demo="https://www.google.com/intl/en/chrome/demos/speech.html">
+<b>var recognizer = new <a data-tooltip-property="SpeechRecognition" data-tooltip-lowercase data-tooltip-js data-tooltip-support='["webkit"]'>speechRecognition</a>();</b>
+<b>recognizer.continuous = true;
+recognizer.interimResults = true;</b>
+recognizer.<b>onresult</b> = function(e) {
+  if (<b>e.results</b>.length) {
+    var lastResultIdx = e.results.resultIndex;
+    console.log(<b>e.results[lastResultIdx][0].transcript</b>);
+  }
+};
+<b>recognizer.start();</b>
+</pre>
+<ul>
+<li>Continuous dictation. interim results, alternative results</li>
+<li><a href="https://www.google.com/intl/en/chrome/demos/speech.html">https://www.google.com/intl/en/chrome/demos/speech.html</a></li>
+<li><a href="http://updates.html5rocks.com/2013/01/Voice-Driven-Web-Apps-Introduction-to-the-Web-Speech-API">HTML5Rocks article</a></li>
+</ul>
+</article>
+</slide>
+
+<slide id="web-speech-example">
+<hgroup>
+      <h2>Web Speech API +</h2>
+    </hgroup>
+    <article>
+		<ul>
+			<li><a href="http://www.moreawesomeweb.com/demos/speech_translate.html">Start Translation</a></li>
+			<li><iframe width="560" height="315" src="http://www.youtube.com/embed/N_wTBKMuJis?start=1910&end=2300" frameborder="0" allowfullscreen></iframe></li>
+		</ul>
+</article>
+
+</slide>
+
+  <slide class="segue dark quote nobackground">
+    <aside class="gdbar right bottom"><img src="images/afceaSml.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <q>
+        A Few Other Kewl HTML5 Features
+      </q>
+    </article>
+  </slide>
+
+
+  <slide>
+	 <hgroup>
+       <h2>File API</h2>
+     </hgroup>
+	 <article>
+	        <iframe src="http://jsbin.com/amoxah/2"></iframe>
+	 </article>
+		<article class="caniuse">
+			  <a href="http://caniuse.com/#feat=fileapi"><img src="/images/smlQuestionMark.png" border="0"></a>
+		</article>
+  </slide>	
+
+<slide>
+<hgroup>
+      <h2>Location API</h2>
+    </hgroup>
+	 <article>
+	        <iframe src="http://jsbin.com/evivip/2"></iframe>
+	 </article>
+</article>
+<article class="caniuse">
+	  <a href="http://caniuse.com/#feat=geolocation"><img src="/images/smlQuestionMark.png" border="0"></a>
+</article>
+</slide>
+
+
+  <slide>
+	<hgroup>
+      <h2>Canvas</h2>
+    </hgroup>
+    <article>
+	 <center>
+	 	<iframe data-src="http://reisz-kickass.appspot.com/final/index.html" style="width: 800px;height: 500px"></iframe><br />
+		<span>March 2012</span>
+	 </center>
+    </article>
+	<article class="caniuse">
+		  <a href="http://caniuse.com/#feat=canvas"><img src="/images/smlQuestionMark.png" border="0"></a>
+	</article>
+  </slide>
+
+
+  <slide>
+	<hgroup>
+      <h2>Canvas</h2>
+    </hgroup>
+    <article>
+		<ul>
+			<li>Big Difference between a year? Tooling Support! Such as CreateJS</li>
+				<ul>
+					<li><a href="http://www.createjs.com/#!/EaselJS">EaselJS</a>: A library which 
+						manages sprites, animation, vector and bitmap 
+						drawing, and user interaction (including multi-touch) based on HTML5 
+						Canvas. It uses a display list concept that mirrors that offered in Flash.</li>
+					<li><a href="http://www.createjs.com/#!/TweenJS">TweenJS</a>: A simple and 
+						chainable tweening engine that transitions numeric 
+						or non-numeric values over time. It is optimized for use with EaselJS, 
+						or can be used on its own.</li>
+					<li><a href="http://www.createjs.com/#!/SoundJS">SoundJS</a>: An audio playback 
+						engine, which allows pluggable modules to play 
+						sound using a variety of methods based on your users' capabilities.</li>
+					<li><a href="http://www.createjs.com/#!/PreloadJS">PreloadJS</a>: Takes the guesswork out of preloading your assets, whether 
+						they be images, video, sounds, JS, data, or whatevs.</li>
+					<li><a href="http://createjs.com/#!/Zoe">Zoë</a>: Configure and export spritesheets from Flash animations, optimized 
+						for use with EaselJS.</li>				
+				</ul>
+			<li>At "Create the Web" San Francisco event, Adobe announced a new Web-Based toolside called 
+				Creative Cloud that will join Flash CS6 Pro in using the CreateJS toolsuite for 
+				using flash or swf's to create HTML5 site. </li>
+		</ul>	
+    </article>
+  </slide>
+
+
+
+  <slide>
+	<hgroup>
+      <h2>Canvas: EaselJS Example 1</h2>
+    </hgroup>
+    <article>
+	    <a href="http://jsbin.com/eceyub/17/edit">JSBin Example</a>
+	    <iframe data-src="http://jsfiddle.net/wesreisz/KjNbT/embedded/result%2Cjs%2Chtml%2Ccss/"></iframe>
+	</article>
+	<article class="caniuse">
+		  <a href="http://caniuse.com/#feat=canvas"><img src="/images/smlQuestionMark.png" border="0"></a>
+	</article>
+  </slide>
+
+  
+  <slide class="fill nobackground" style="background-image: url(images/demo.png)">
+    <hgroup>
+      <h2 class="italics" style="text-shadow: 1px 1px 1px #000;">Exercise 2: Canvas Animation with EaselJS<br />
+		(Moderate)
+	</h2>
+    </hgroup>
+	<article>
+    </article>
+  </slide>
+
+  <slide>
+	<hgroup>
+      <h2>Exercise 2: Canvas Animation with EaselJS</h2>
+    </hgroup>
+    <article>
+	    <a href="http://jsbin.com/okanav/4/edit">JSBin Example</a>
+	    <iframe src="http://jsfiddle.net/wesreisz/5Rft7/embedded/js%2Chtml%2Ccss/"></iframe>
+	</article>
+	<article class="caniuse">
+		  <a href="http://caniuse.com/#feat=canvas"><img src="/images/smlQuestionMark.png" border="0"></a>
+	</article>
+  </slide>
+
+
+<slide>
+	<hgroup>
+      <h2>Exercise 2: Canvas Animation with EaselJS</h2>
+    </hgroup>
+    <article>
+	    <!--iframe src=""></iframe-->
+ 	    <a href="http://jsbin.com/ebusot/8/edit">JSBin Example</a>
+	    <iframe src="http://jsfiddle.net/wesreisz/vJEjh/embedded/result%2Cjs/"></iframe>
+	</article>
+	<article class="caniuse">
+		  <a href="http://caniuse.com/#feat=canvas"><img src="/images/smlQuestionMark.png" border="0"></a>
+	</article>
+  </slide>
+
+  <slide class="segue dark quote nobackground">
+    <aside class="gdbar right top"><img src="images/afceaSml.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+
+		<img src="/images/YoungGrasshopper.png"><br />
+
+  		<q>Congrats! You've earned the Grasshopper Award for mastering the 2D Animation with HTML5 Canvas!</q>
+
+    </article>
+  </slide>
+
+  <slide>
+	<hgroup>
+      <h2>Just in Case You Thought Your Foo Was Strong</h2>
+    </hgroup>
+    <article>
+	 <center>
+		<br />
+	 	<a href="http://atari.com/arcade#!/arcade/centipede/play">Atari Arcade</a><br /> made with CreateJS<br />
+		<span>Sept 2012</span>
+	 </center>
+    </article>
+	<article class="caniuse">
+		  <a href="http://caniuse.com/#feat=canvas"><img src="/images/smlQuestionMark.png" border="0"></a>
+	</article>
+  </slide>
+
+    <slide class="segue dark quote nobackground">
+    	<article class="flexbox vleft auto-fadein">
+	  		<q>More Core HTML5 Features</q>
+	    </article>
+    </slide>
+
+	<slide>
+		<hgroup>
+	      <h2>Storage</h2>
+	    </hgroup>
+	
+        <article>
+			<ul>
+				<li>WebDB: <a href="http://www.wesleyreisz.com/web/codepalousa/schedulebuilder-web/builder/">Example</a></li>
+				<li>IndexedDB</li>
+				<li>LocalStorage / SessionStorage <a href="http://jsbin.com/aceles/2/edit">JSBin Example</a></li>
+			</ul>
+			<iframe src="http://jsfiddle.net/wesreisz/ZnftW/embedded/result%2Cjs%2Ccss%2Chtml/"></iframe>
+			
+	    </article>
+	    <article class="caniuse">
+		  <a href="http://www.caniuse.com"><img src="/images/smlQuestionMark.png" border="0"></a>
+	    </article>
+	</slide>
+
+
+	<slide>
+	  <article>
+			<hgroup>
+		      <h2>Application Cache (Offline)</h2>
+		    </hgroup>
+	        <section>
+	        	  <div id="app-cache">
+				          <style>
+				            #appcache-message {
+				              text-align: center;
+				            }
+				            #appcache-message img {
+				              vertical-align: middle;
+				              cursor: pointer;
+				            }
+				            .appcache-examples pre {
+				              font-size: 80%;
+				            }
+				          </style>
+				          <section class="appcache-examples">
+				<pre pre class="prettyprint" data-lang="html">&lt;html <b>manifest="cache.appcache"</b>&gt;</pre>
+
+				<pre class="prettyprint" data-lang="JavaScript">
+window.<b>applicationCache</b>.addEventListener('updateready', function(e) {
+  if (window.<b>applicationCache</b>.<b>status</b> == window.<b>applicationCache</b>.<b>UPDATEREADY</b>) {
+    window.<b>applicationCache</b>.<b>swapCache()</b>;
+    if (confirm('A new version of this site is available. Load it?')) {
+      window.location.reload();
+    }
+  }
+}, false);
+				</pre>
+				cache.appcache:
+				<pre pre class="prettyprint" data-lang="Text File">
+CACHE MANIFEST
+# version 1.0.0
+
+CACHE:
+/html5/src/logic.js
+/html5/src/style.css
+/html5/src/background.png
+				</pre>
+	
+	        </section>
+	  </article>
+	<article class="caniuse">
+			  <a href="http://caniuse.com/#search=appcache"><img src="/images/smlQuestionMark.png" border="0"></a>
+	</article>
+	</slide>
+	
+	<slide>
+		<hgroup>
+	      <h2>AppCache Demo</h2>
+	    </hgroup>
+	    <article>
+		    <iframe src="http://appcachefacts.info/demo/"></iframe>
+		</article>
+		<article class="caniuse">
+			  <a href="http://caniuse.com/#search=appcache"><img src="/images/smlQuestionMark.png" border="0"></a>
+		</article>
+	  </slide>
+	
+   <slide>
+     <hgroup>
+      <h2>Other HTML5 Core API's & Features</h2>
+    </hgroup>
+	<article>
+		<ul>
+			<li><b>Web Messaging</b>: Web Messaging or cross-document messaging, is an API introduced in the WHATWG HTML5 draft specification, allowing documents to communicate with one another across different origins, or source domains.[1] Prior to HTML5, web browsers disallowed cross-site scripting, to protect against security attacks. This practice barred communication between non-hostile pages as well, making document interaction of any kind difficult.[1][2] Cross-Document messaging allows scripts to interact across these boundaries, while providing a rudimentary level of security.</li>
+			<li><b>Web Sockets</b>: WebSocket is a web technology providing full-duplex communications channels over a single TCP connection. The WebSocket protocol was standardized by the IETF as RFC 6455 in 2011, and the WebSocket API in Web IDL is being standardized by the W3C.
+			WebSocket is designed to be implemented in web browsers and web servers, but it can be used by any client or server application. The WebSocket Protocol is an independent TCP-based protocol.</li>
+			<li><b>Drag and Drop</b>: You got this one...</li>
+		</ul>
+    </article>
+  </slide>
+  <slide class="segue dark quote nobackground">
+    <aside class="gdbar right bottom"><img src="images/afceaSml.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <q>
+        CSS3 Tricks & Features
+      </q>
+    </article>
+  </slide>
+
+
+<slide>
+  <hgroup>
+    <h2>Viewport-percentage units</h2>
+    <h3>vw, vh, vmin, vmax</h3>
+  </hgroup>
+  <article>	
+	    <p>The size of rem/em units are dependent on parent elements</p>
+	    <p>The size of viewport units are based purely on viewport size!</p><br />
+		
+		<p class="">Value is equal to 1% (1/100th) of width/height:</p>
+		<div class="columns-2 build-current">
+		  <div>1<b>vw</b> = 1% of viewport width</div>
+		  <div>1<b>vh</b> = 1% of viewport height</div>
+		  <div>1<b>vmin</b> = min(1vw, 1vh)</div>
+		  <div>1<b>vmax</b> = max(1vw, 1vh)</div>
+		</div>
+		<pre class="prettyprint" data-lang="CSS">
+#li-image5{
+	position: absolute; 
+	top:4vw; 
+	left:30vw;  
+	transform:rotate(15deg);
+	-ms-transform:rotate(15deg);
+	-webkit-transform:rotate(15deg)
+}
+		</pre>	
+  </article>
+  <article>	
+	<span class="build">
+		<img id="li-image5" src="/images/browsers.png">
+	</span>	
+  </article>
+  <article class="caniuse">
+	  <a href="http://caniuse.com/#feat=viewport-units"><img src="/images/smlQuestionMark.png" border="0"></a>
+  </article>
+</slide>
+
+
+<slide>
+  <hgroup>
+    <h2>CSS3 Animation</h2>
+  </hgroup>
+  <article>
+		
+  </article>
+  <article>
+	<span class="build">
+		<pre class="prettyprint" data-lang="CSS">
+#li-image3{
+   position: absolute; 
+   top:20vw; 
+   left:30vw; 
+   clip-path:polygon(100% 50%,84.70057014808336% 54.5684167277018%,...)
+}
+#li-image3:hover{
+	animation:"clip" 1s infinite
+}
+@-webkit-keyframes "clip" {
+  0% {
+    clip-path: polygon(100% 50%,84.70057014808336% 54.5684167277018%,...);
+  }
+  50% {
+    clip-path: polygon(84.70057014808336% 54.5684167277018%,91.0518476172854% ...);
+  }
+  100% {
+    clip-path: polygon(91.0518476172854% 60.99980941685713%,82.33578363789503% ...);
+  }
+}
+		</pre>
+		<img id="li-image3" src="/images/geolocation.png">
+	</span>
+  </article>
+
+  <article class="caniuse">
+	  <a href="http://caniuse.com/#keyframe"><img src="/images/smlQuestionMark.png" border="0"></a>
+  </article>	
+</slide>
+
+<slide>
+   <hgroup>
+     <h2>CSS Variables</h2>
+	 <h3>Made commonplace by CSS preprocessors.</h3>
+   </hgroup>
+   <article>
+	   <pre class="prettyprint" data-lang="CSS">
+body {
+  var-fontColor: red;
+  color: var(fontColor);
+}
+		</pre>
+		<p>Define variable name prefixed with "var-". Use by passing it to var()</p>
+		<p>Names are case-sensitive</p>	
+		<p>Scoped to the rule they're defined in but cascade to children</p>
+		<p>Allows fallback values: color:var(fontColor, blue);</p>
+		<p>Extremely new... only in Chrome enabled in experimental WebKit about: flags"
+		</p>
+  </article>
+</slide>
+
+<slide>
+   <hgroup>
+     <h2>CSS Variables Example</h2>
+   </hgroup>
+   <article>
+	   <pre class="prettyprint" data-lang="CSS">
+:root { /* "global variables" */
+  var-textColor: yellow;
+  var-backgroundColor: pink;
+}
+footer {
+  var-backgroundColor: black;
+  background-color: var(backgroundColor); /* black */
+  color: var(textColor); /* inherited yellow */
+}
+footer > span {
+  var-textColor: white;
+  color: var(textColor); /* white */
+  background-color: var(backgroundColor); /* inherited black */
+}
+  </article>
+</slide>
+
+
+<slide>
+  <hgroup>
+     <h2>Responsive Design</h2>
+     <h3>CSS3 Media Queries</h3>
+   </hgroup>
+  <article>	
+	<!--iframe src="http://jsbin.com/oqulik/2/"></iframe-->
+	<iframe src="http://jsfiddle.net/wesreisz/Q5YT3/embedded/result%2Cjs%2Chtml%2Ccss/"></iframe>
+  </article>
+</slide>
+
+<slide class="segue dark quote nobackground">
+  <aside class="gdbar right top"><img src="images/afceaSml.png"></aside>
+  <article class="flexbox vleft auto-fadein">
+
+	    <img src="/images/donatello.png"><br />
+
+		<q>Congrats! You've earned the Donatello Award for CSS3 Knowledge!</q>
+
+  </article>
+  <article class="caniuse">
+	  <a href="http://caniuse.com/#feat=css-mediaqueries"><img src="/images/smlQuestionMark.png" border="0"></a>
+  </article>
+</slide>
+
+  <slide>
+	<hgroup>
+      <h2>HTML5 API's</h2>
+    </hgroup>
+    <article>
+    	<img src="/images/HTML5-APIs-and-related-technologies-by-Sergey-Mavrody.png">
+	</article>
+  </slide>
+
+ <slide class="fill nobackground" style="background-image: url(images/idea.jpg)">
+    <hgroup>
+      <h2 class="black italics" style="text-shadow: 1px 1px 1px #000;"> But what if you're not running Chrome?</h2>
+    </hgroup>
+  </slide>
+
+  <slide>
+	<hgroup>
+      <h2>Modernzr</h2>
+    </hgroup>
+    <article>
+    	<p>Modernizr runs quickly on page load to detect features; it then creates a JavaScript object with the results, and adds classes to the html element for you to key your CSS on. </p>
+        <pre class="prettyprint" data-lang="JavaScript">
+Modernizr.load({
+  test: Modernizr.geolocation,
+  yep : 'geo.js',
+  nope: 'geo-polyfill.js'
+});
+	    </pre>
+	    <p><b>Polyfill</b>: A shim that mimics a future API providing fallback functionality to older browsers. -<a href="http://alexsexton.com/">Alex Sexton</a></p>
+		<p>Linkage: <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills">One or Two Polyfills</a>
+	</article>
+  </slide>
+
+ <slide>
+	<hgroup>
+      <h2>Quiz</h2>
+    </hgroup>
+    <article>
+		<ul class="build">
+	 	   	<li>Name three new semantic tags with HTML5?</li>
+			<li>What can you use if a browser doesn't support a technology you want to use?</li>
+			<li>What two organizations guide HTML5?</li>
+			<li>What are CSS3 Media Queries?</li>
+			<li>Name the three storage api?</li>
+			<li>What is the difference between canvas and webgl?</li>
+			<li>What website can you use to check browser feature support?</li>
+			<li>Name three new types of tags with HTML5?</li>
+			<li>What feature support offline content?</li>
+			<li>Name three new API's with identified with HTML5?</li>
+		</ul>
+	</article>
+  </slide>
+
+<slide class="segue dark quote nobackground">
+  <aside class="gdbar right top"><img src="images/afceaSml.png"></aside>
+  <article class="flexbox vleft auto-fadein">
+
+	    <img src="/images/KickAssHtml5Award.png"><br />
+
+		<q>Congrats! You've earned the Kick Ass HTML5 Award!</q>
+
+  </article>
+</slide>
+
+
+
+  <slide>
+	<hgroup>
+      <h2>Recap</h2>
+    </hgroup>
+    <article>
+	    <table>
+			<tr>
+				<td>
+					<span class="build">
+						<div>Ninja Panda Award for mastering HTML5 Semantic Tags <img src="/images/PandaNinjaAward.png"></div>
+					</span>
+				</td>
+				<td>
+					<span class="build">
+						<div>Grasshopper Award for mastering the 2D Animation with HTML5 Canvas <img src="/images/YoungGrasshopper.png"></div>
+					</span>
+				</td>
+				<td>
+					<span class="build">
+						<div>Donatello Award for CSS3 Knowledge!<br /> <br /><img src="/images/donatello.png"></div>
+					</span>
+				</td>
+				<td>
+					<span class="build">
+						<div>Kick Ass HTML5 Award for Awesomeness!<br /><br /><img src="/images/KickAssHtml5Award.png"></div>
+					</span>
+				</td>		
+			</tr>	
+		</table>
+		
+	</article>
+  </slide>
+
+<slide>
+    <hgroup>
+      <h2>Credits:</h2>
+    </hgroup>
+    <article>
+     	<ul class="build">
+        	<li>Eric Bidelman - Chrome Team (@ebidel) <--- Go Follow Him!</li>
+			<ul>
+				<li>Google IO 2013 Talk <a href="http://www.moreawesomeweb.com">A More Awesome Web</a></li>
+				<li>Google IO 2012 Talk <a href="http://www.htmlfivecan.com/">The Web Can Do That?</a></li>
+			</ul>	
+	    </ul>
+    </article>
+  </slide>
+
+ <slide class="fill nobackground" style="background-image: url(images/chanSurprise.jpg)">	
+ </slide>
+
+<!-- end of the deck -->
+  <slide class="thank-you-slide dark nobackground">
+    <aside class="gdbar right"><img src="images/afceaSml.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>Thank You!</h2>
+	  <p>Wesley Reisz</p>
+    <span>
+		<center>
+			<b>web:</b> www.wesleyreisz.com<br />
+			<b>email:</b> wes@wesleyreisz.com<br /> 
+			<b>slides:</b> reisz-html5.appspot.com<br />
+			<b>jsfiddle:</b> jsfiddle.net/user/wesreisz<br />
+			<b>github:</b> github.com/wesreisz<br />
+			<b>twitter:</b> @wesreisz<br />
+		</center>	
+	</span>
+</article>
+  </slide>
+
+  <slide class="logoslide nobackground">
+    <article class="flexbox vcenter">
+     	 <span><img src="images/logoWes.png" /></span>
+    </article>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-35519039-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

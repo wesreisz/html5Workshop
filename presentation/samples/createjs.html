@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="/js/easeljs-0.5.0.min.js"></script>
+		<script>
+		  var logo={};
+		  logo.init = function (){
+              stage = new createjs.Stage("demo");
+		      logo = new createjs.Bitmap("/images/afceaSml.png");
+		      logo.regX = 45;
+	  	      logo.regY = 45;
+		      logo.y = 50;
+		      logo.x = -90;
+		      
+		      stage.addChild(logo);	
+		      createjs.Ticker.addListener(this);//looks for a tick function to call on each update
+		   }
+		   logo.tick = function(){
+			  if (logo.x>750){logo.x=-90;}
+			  logo.x += 2;
+			  logo.rotation +=2;
+			  stage.update();
+		    }
+		</script>
+	</head>
+	<body onload="logo.init()" style="background:#FFF;margin:15px;">
+    <canvas id="demo" width="700" height="125" style="background:#FFF;">		
+	</body>
+</html>

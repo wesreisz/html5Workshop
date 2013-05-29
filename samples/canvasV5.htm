@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Canvas Animation (EaselJS) V5 - jsFiddle demo by wesreisz</title>
+  
+  <script type='text/javascript' src='http://code.jquery.com/jquery-2.0.1.js'></script>
+  <script type='text/javascript' src="http://code.createjs.com/easeljs-0.6.1.min.js"></script>
+  
+  <style type='text/css'>
+    body{
+    font-family: arial;
+    background-color:#dedede;
+}
+#testCanvas{
+    background-color:#dedede;
+}
+  </style>
+  
+
+
+<script type='text/javascript'>//<![CDATA[ 
+$(window).load(function(){
+//Based on the createjs spritesheet examples.
+var stage;
+var donkey;
+function run() {
+    stage = new createjs.Stage(document.getElementById("testCanvas"));
+    stage.canvas.width = window.innerWidth;
+    var ss = new createjs.SpriteSheet({
+        "animations": {
+            "run": [13, 15],
+            "jump" : [15, 20, "run"]
+        },
+            "images": ["http://img455.imageshack.us/img455/1981/namelessfinalbo8.png"],
+            "frames": {
+            "height": 79,
+            "width": 62.5,
+            "regX": 0,
+            "regY": 0
+        }
+    });
+
+    donkey = new createjs.BitmapAnimation(ss);
+    donkey.x = -100;
+    donkey.y = 0
+    donkey.scaleX = donkey.scaleY = 1.5;
+    
+    donkey.gotoAndPlay("run");
+
+    stage.addChild(donkey);
+    createjs.Ticker.setFPS(10);
+    createjs.Ticker.addEventListener("tick", function(event) {
+        donkey.x += 10;
+        if (donkey.x > stage.canvas.width) { donkey.x = -200; }
+        stage.update(event);
+    });
+};
+
+$(document).ready(function(){
+  $('body').keydown(function() {
+     donkey.gotoAndPlay("jump");
+  });
+  run();
+});
+});//]]>  
+
+</script>
+
+
+</head>
+<body>
+  <h1>Canvas Animation Finish v5</h1>
+
+<div class="canvasHolder">
+    <canvas id="testCanvas" width="500" height="200"></canvas>
+</div>
+  
+</body>
+
+
+</html>
+

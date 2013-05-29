@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>EaselJS: Simple SpriteSheet Example</title>
+
+	<script type="text/javascript" src="src/easeljs/utils/UID.js"></script>
+	<script type="text/javascript" src="src/easeljs/geom/Matrix2D.js"></script>
+	<script type="text/javascript" src="src/easeljs/events/EventDispatcher.js"></script>
+	<script type="text/javascript" src="src/easeljs/display/DisplayObject.js"></script>
+	<script type="text/javascript" src="src/easeljs/display/Container.js"></script>
+	<script type="text/javascript" src="src/easeljs/display/Stage.js"></script>
+	<script type="text/javascript" src="src/easeljs/events/MouseEvent.js"></script>
+	<script type="text/javascript" src="src/easeljs/display/Shape.js"></script>
+	<script type="text/javascript" src="src/easeljs/display/Graphics.js"></script>
+	<script type="text/javascript" src="src/easeljs/utils/Ticker.js"></script>
+	<script type="text/javascript" src="src/easeljs/display/SpriteSheet.js"></script>
+	<script type="text/javascript" src="src/easeljs/display/BitmapAnimation.js"></script>
+	<script type="text/javascript" src="src/easeljs/geom/Rectangle.js"></script>
+	
+	<script type="text/javascript">
+        var stage;
+		function init() {
+			stage = new createjs.Stage(document.getElementById("testCanvas"));
+
+			var ss = new createjs.SpriteSheet({
+				"animations":
+				{
+					"run": [0, 3],
+					"stand": [11, 11],
+					"jump": [12, 14,"run"]},
+					"images": ["donkey.gif"],
+					"frames":
+						{
+							"height": 200,
+							"width":200,
+							"regX": 0,
+							"regY": 0,
+							"count": 64
+						}
+				});
+
+			var donkey = new createjs.BitmapAnimation(ss);
+			donkey.x = 50;
+			donkey.y = 0
+			donkey.scaleX = donkey.scaleY = 1;
+			
+			
+			donkey.gotoAndPlay("stand");
+			
+			stage.addEventListener("click", function(){donkey.gotoAndPlay("run");});
+			stage.addEventListener("stagemousedown", function(){donkey.gotoAndPlay("jump");});
+			stage.addChild(donkey);
+			createjs.Ticker.setFPS(10);
+			createjs.Ticker.addEventListener("tick", stage);
+		}
+		
+	</script>
+</head>
+<body>
+	<h1>Easel<strong>JS</strong>Simple SpriteSheet</h1>
+
+	<div class="canvasHolder">
+		<button onclick="init();">Start Me</button>
+		<canvas id="testCanvas" width="400" height="200"></canvas>
+	</div>
+</body>
+</html>

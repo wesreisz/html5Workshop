@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Responsive Design (CSS3 Media Queries) V2 - jsFiddle demo by wesreisz</title>
+ 
+ <style type='text/css'>
+    header {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+#content {
+    float: left;
+    width: 60%;
+    margin: 0 0 20px 0;
+    padding: 0;
+}
+#content .inner {
+    margin-right: 2%;
+}
+sidebar {
+    float: left;
+    margin: 0 0 20px 1%;
+    padding: 0;
+    position: relative;
+    top: 0;
+    bottom: 0;
+}
+#bar1 {
+    width:20%;
+}
+#bar2 {
+    width:18%;
+}
+footer {
+    clear: both;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+/******************/
+ body {
+    padding: 0px;
+    margin:0px;
+    font-family: Verdana, Geneva, sans-serif;
+    line-height: 1.2em;
+    font-size:1em;
+    background:url(http://www.onextrapixel.com/examples/responsive-design/grid.png) no-repeat;
+}
+h1 {
+    line-height: 100%;
+    font-size: 1.6em;
+}
+h2 {
+    font-size: 1.2em;
+}
+header, nav, footer, h1, h2, h3 {
+    font-family: Verdana, Geneva, sans-serif;
+}
+header {
+    padding: 20px;
+    color: #fff;
+    background: rgba(131, 178, 234, 0.8);
+}
+header h2 {
+    padding:30px 20px;
+}
+#content .bloc {
+    padding: 20px;
+    color: #333;
+    background: rgb(140, 167, 193);
+}
+sidebar {
+    background: none repeat scroll 0 0 #69D2E7;
+}
+sidebar .bloc {
+    padding: 20px;
+    color: #fff;
+    background: rgb(111, 78, 152);
+    font-size: 85%;
+}
+nav ul {
+    margin: 0;
+    padding: 10px;
+    list-style: none;
+    color: #333;
+    background:rgba(13, 17, 54, 0.9);
+    overflow: hidden;
+}
+nav li {
+    display:inline-block;
+}
+nav a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    font-weight: bold;
+}
+nav a:hover {
+    background: rgb(49, 54, 98)
+}
+footer {
+    color: #fff;
+    background: rgba(131, 178, 234, 0.8);
+    padding:0;
+    margin:0;
+}
+footer h3 {
+    padding: 20px 20px;
+}
+.data {
+    border-radius: 5px;
+    padding:10px;
+    background:rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 3px 0 rgba(51, 51, 51, 0.8);
+}
+  </style>
+  
+
+
+<script type='text/javascript'>//<![CDATA[ 
+window.onload=function(){
+function report() {
+    document.getElementById('divOutput').innerHTML = 'screen.width:' + screen.width + '<br>' + 'screen.height:' + screen.height + '<br>' + 'window.innerWidth:' + window.innerWidth + '<br>' + 'window.innerHeight:' + window.innerHeight + '<br>' + 'window.outerWidth:' + window.outerWidth + '<br>' + 'window.outerHeight:' + window.outerHeight + '<br>' + 'document.documentElement.<br> clientWidth:' + document.documentElement.clientWidth + '<br>' + 'document.documentElement.<br> clientHeight:' + document.documentElement.clientHeight + '<br>' + 'window.devicePixelRatio:' + window.devicePixelRatio;
+}
+window.addEventListener('load', report, false);
+window.addEventListener('resize', report, false);
+window.addEventListener('orientationchange', report, false);
+window.addEventListener('deviceorientation', report, false);
+window.addEventListener('MozOrientation', report, false);
+}//]]>  
+
+</script>
+
+
+</head>
+<body>
+  <header>
+     <h2>My Website Header</h2>
+     <!--Article Credit: http://www.onextrapixel.com/2012/04/23/responsive-web-design-layouts-and-media-queries/ (Stéphanie Walter)-->
+</header>
+
+<article id="page">
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Portfolio</a></li>
+            <li><a href="#">Blog</a></li>
+        </ul>
+    </nav>
+    <section id="content">
+        <div class="bloc">
+            <h1>Fluid Layout</h1>
+
+            <section class="data">
+                <output id="divOutput"></output>
+            </section>
+            <p>Jelly beans jelly beans marshmallow marshmallow muffin tart brownie. Powder dragée apple pie pastry bonbon bonbon brownie. Pie sweet roll tart cotton candy tiramisu chocolate dragée soufflé wafer. Powder sweet roll apple pie dragée liquorice gummi bears wypas lemon drops. Candy canes icing icing liquorice jelly-o marzipan. Cake gummies macaroon jelly beans tootsie roll. Powder danish dragée jelly-o tart chocolate jelly beans jujubes. Gingerbread wafer powder macaroon sugar plum tart jelly-o wafer. Halvah chocolate cake dragée fruitcake wypas chocolate cake dessert carrot cake. Caramels pie tootsie roll pie ice cream apple pie sugar plum apple pie topping. Cheesecake brownie powder jelly beans. Sugar plum cotton candy sweet roll. Jujubes sesame snaps jelly pastry bonbon powder marzipan tart macaroon.</p>
+            <p>Croissant dessert halvah biscuit cupcake wypas cupcake. Cookie powder dragée fruitcake. Tart lollipop apple pie jujubes cookie caramels gummi bears sugar plum. Soufflé gingerbread cupcake donut tiramisu cookie sweet soufflé cake. Candy canes candy canes donut toffee candy canes cheesecake gummies apple pie. Pie cupcake cheesecake sugar plum tart donut bear claw caramels</p>
+            <p>Sesame snaps candy candy faworki sesame snaps chocolate wypas cheesecake. Cupcake cupcake chupa chups dragée bonbon cotton candy pudding. Gummies fruitcake apple pie brownie liquorice brownie. Cupcake halvah topping tiramisu pudding ice cream candy canes. Jelly beans cookie marshmallow cheesecake oat cake chupa chups pie sweet wypas. Wafer pie macaroon lemon drops danish sugar plum pastry ice cream. Bear claw wafer tiramisu chocolate. Marzipan croissant cake fruitcake.</p>
+        </div>
+    </section>
+    
+    <sidebar id="bar1">
+        <article class="bloc">
+            <h2>First sidebar</h2>
+
+            <p>toffee candy canes cheesecake gummies apple pie. Pie cupcake cheesecake sugar plum tart donut bear claw caramels. Sesame snaps candy candy faworki sesame snaps chocolate wypas cheesecake. Cupcake cupcake chupa chups dragée bonbon cotton candy pudding.</p>
+            <h2>Sidebar widget</h2>
+
+            <p>Sweet roll bear claw jelly beans jelly-o powder wypas. Marzipan tootsie roll croissant sesame snaps macaroon dragée faworki apple pie marzipan.</p>
+        </article>
+    </sidebar>
+    
+    <sidebar id="bar2">
+        <article class="bloc">
+            <h2>Second sidebar</h2>
+
+            <p>Cheesecake faworki sugar plum topping wypas gummi bears tootsie roll. Halvah powder sweet faworki tootsie roll biscuit gingerbread applicake pie. Bonbon jelly beans lollipop. Liquorice brownie brownie soufflé sesame snaps.</p>
+            <h2>Sidebar widget 2</h2>
+
+            <p>Carrot cake jujubes cheesecake bonbon tart cheesecake sweet roll gingerbread. Gummies tiramisu carrot cake ice cream pie danish.</p>
+        </article>
+    </sidebar>
+</article>
+
+<footer>
+     <h3>Footer</h3>
+</footer>
+  
+</body>
+
+
+</html>
+

@@ -1,0 +1,41 @@
+application: reisz-html5
+version: 4
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /
+  static_files: template.html
+  upload: template\.html
+
+- url: /slide_config\.js
+  static_files: slide_config.js
+  upload: slide_config\.js
+
+- url: /js
+  static_dir: js
+
+- url: /theme
+  static_dir: theme
+
+- url: /images
+  static_dir: images
+      
+- url: /samples
+  static_dir: samples 
+  
+- url: /samples/canvas
+  static_dir: /samples/canvas  
+  
+- url: /samples/canvas/src/easeljs/utils/   
+  static_dir: /samples/canvas/src/easeljs/utils/
+  
+- url: /samples/canvas/src/easeljs/geom/   
+  static_dir: /samples/canvas/src/easeljs/geom/
+
+- url: /samples/canvas/src/easeljs/events/   
+  static_dir: /samples/canvas/src/easeljs/events/
+
+- url: /samples/canvas/src/easeljs/display/   
+  static_dir: /samples/canvas/src/easeljs/display/

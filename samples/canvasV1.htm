@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Canvas Animation (EaselJS) V1 - jsFiddle demo by wesreisz</title>
+    
+      <script type='text/javascript' src="http://code.createjs.com/easeljs-0.6.1.min.js"></script>
+    
+  
+  <style type='text/css'>
+    body{
+    font-family: arial;
+}
+  </style>
+  
+
+
+<script type='text/javascript'>//<![CDATA[ 
+window.onload=function(){
+//Based on the createjs spritesheet examples.
+
+var stage;
+(
+function run() {
+    stage = new createjs.Stage(document.getElementById("testCanvas"));
+
+    var ss = new createjs.SpriteSheet({
+        "animations": {
+            "run": [0, 3]
+        },
+            "images": ["http://reisz-kickass.appspot.com/final/img/workingDonkey.gif"],
+            "frames": {
+            "height": 200,
+            "width": 200,
+            "regX": 0,
+            "regY": 0
+        }
+    });
+
+    var donkey = new createjs.BitmapAnimation(ss);
+    donkey.x = 50;
+    donkey.y = 0
+    donkey.scaleX = donkey.scaleY = 1;
+    
+    donkey.gotoAndPlay("run");
+
+    stage.addChild(donkey);
+    createjs.Ticker.setFPS(10);
+    createjs.Ticker.addEventListener("tick", stage);
+})();
+}//]]>  
+
+</script>
+
+
+</head>
+<body>
+  <h1>Canvas Animation (EaselJS) V1</h1>
+
+<div class="canvasHolder">
+    <canvas id="testCanvas" width="400" height="200"></canvas>
+</div>
+  
+</body>
+
+
+</html>
+
